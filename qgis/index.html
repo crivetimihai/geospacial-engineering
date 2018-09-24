@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Geospacial Engineering with PostgreSQL, PostGIS, QGIS and Python Geopandas">
+  <meta name="author" content="Mihai Criveti">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Load data with QGIS - GeoSpacial Engineering</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Load data with QGIS";
+    var mkdocs_page_input_path = "qgis/README.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> GeoSpacial Engineering</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Geospacial Engineering with Docker, PostgreGIS and QGIS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../setup/">Docker PostGIS and PGAdmin4</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../opendata/">Open Data Sources and Types</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Load data with QGIS</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#loading-data-with-qgis">Loading data with QGIS</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#1-install-qgis">1. Install QGIS:</a></li>
+        
+            <li><a class="toctree-l3" href="#2-import-landslide-shapefile-data-into-qgis-then-posgres">2. Import Landslide shapefile data into QGIS, then Posgres</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../psql/">Commandline and psql</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">GeoSpacial Engineering</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Load data with QGIS</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/crivetimihai/geospacial-engineering/edit/master/docs/qgis/README.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="loading-data-with-qgis">Loading data with QGIS</h1>
+<p>In this article, I will show you how to:</p>
+<ol>
+<li>Install QGIS on Ubuntu Linux.</li>
+<li>Connect QGIS to PostgreSQL/PostGIS.</li>
+<li>Import data (shapefiles, GeoJSON) into the GIS database using DBManager.</li>
+</ol>
+<h2 id="1-install-qgis">1. Install QGIS:</h2>
+<p>On Ubuntu Linux, you can use:</p>
+<pre><code class="bash">sudo apt-get update
+sudo apt-get install qgis
+</code></pre>
+
+<p>For other operating systems, follow the instructions listed at <a href="https://qgis.org/en/site/">https://qgis.org/en/site/</a></p>
+<h3 id="connect-to-postgis">Connect to PostGIS</h3>
+<ul>
+<li>
+<p>Add PostGIS in QGis</p>
+</li>
+<li>
+<p>Under <em>Browser, Right click </em>PostGIS<em> &gt; </em>New Connection* and select Name: postgis, Host: localhost, Port: 5432.</p>
+</li>
+<li>Save the connection details.</li>
+</ul>
+<p><img alt="qgis-connect.png" src="qgis-connect.png" /></p>
+<h2 id="2-import-landslide-shapefile-data-into-qgis-then-posgres">2. Import Landslide shapefile data into QGIS, then Posgres</h2>
+<h3 id="import-the-data-in-qgis">Import the data in QGIS</h3>
+<blockquote>
+<p>First, we import the sample data into QGIS:</p>
+</blockquote>
+<ol>
+<li>'Layer &gt; Data Source Manager &gt; Home' and find the layers</li>
+<li>Select the layers you wish to add and click the Add Selected Layers button.</li>
+</ol>
+<h3 id="export-the-data-to-postgresql-postgis">Export the data to PostgreSQL / PostGIS</h3>
+<ol>
+<li>Click on <em>Database &gt; DB Manager &gt; DB Manager</em></li>
+<li>Select *PostGIS - yourdb &gt; your schema &gt; Table &gt; Import Layer / File and name it (ex: Landslide_Events)</li>
+<li>Repeat step 2 for every layer you wish to import</li>
+<li>Close the DB Manager</li>
+</ol>
+<p><img alt="db-manager.png" src="db-manager.png" /></p>
+<blockquote>
+<p>Note: The import activity can take a long time. You can monitor progress in the PGAdmin4 Dashboard, by looking at the <code>Tuples In: Inserts</code> graph:</p>
+</blockquote>
+<p><img alt="load-performance.png" src="load-performance.png" /></p>
+<h3 id="delete-the-layers-and-load-them-from-the-db">Delete the layers - and load them from the DB</h3>
+<ol>
+<li>In Layers, <em>right click each layer - Remove</em></li>
+<li>In <em>Browser &gt; Postgis &gt; postgis &gt; public</em> - double click each layer (in the right order).</li>
+</ol>
+<p><img alt="postgis-qgis.png" src="postgis-qgis.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../psql/" class="btn btn-neutral float-right" title="Commandline and psql">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../opendata/" class="btn btn-neutral" title="Open Data Sources and Types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/crivetimihai/geospacial-engineering/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../opendata/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../psql/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2018-09-24 21:31:48
+-->

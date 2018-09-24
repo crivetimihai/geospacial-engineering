@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Geospacial Engineering with PostgreSQL, PostGIS, QGIS and Python Geopandas">
+  <meta name="author" content="Mihai Criveti">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Docker PostGIS and PGAdmin4 - GeoSpacial Engineering</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Docker PostGIS and PGAdmin4";
+    var mkdocs_page_input_path = "setup/README.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> GeoSpacial Engineering</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Geospacial Engineering with Docker, PostgreGIS and QGIS</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Docker PostGIS and PGAdmin4</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#docker-postgis-and-pgadmin">Docker PostGIS and PGAdmin</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#1-build-a-postgis-docker-image">1. Build a PostGIS Docker Image</a></li>
+        
+            <li><a class="toctree-l3" href="#2-composing-multiple-images-with-docker-compose">2. Composing multiple images with docker compose</a></li>
+        
+            <li><a class="toctree-l3" href="#3-create-a-database-and-enable-postgis-with-pgadmin4">3. Create a database and enable PostGIS with PGAdmin4</a></li>
+        
+            <li><a class="toctree-l3" href="#links-and-reference">Links and Reference:</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../opendata/">Open Data Sources and Types</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../qgis/">Load data with QGIS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../psql/">Commandline and psql</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">GeoSpacial Engineering</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Docker PostGIS and PGAdmin4</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/crivetimihai/geospacial-engineering/edit/master/docs/setup/README.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="docker-postgis-and-pgadmin">Docker PostGIS and PGAdmin</h1>
+<p>In this article, I will show you how to:</p>
+<ol>
+<li>Create a Postgis docker image <code>FROM postgres</code> and publish it to <a href="https://hub.docker.com/">hub.docker.com</a>.</li>
+<li>Create a Geospacial Database environment in Docker Compose with PostGIS and PGAdmin4.</li>
+<li>Use PGAdmin4 to create a database an enable Geospacial extensions.</li>
+</ol>
+<h2 id="1-build-a-postgis-docker-image">1. Build a PostGIS Docker Image</h2>
+<ul>
+<li>A <code>Dockerfile</code> contains instructions to build an image.</li>
+<li>Start by extending an existing PostgreSQL 10 Debian image: <code>FROM postgres:10</code>.</li>
+<li>Use <code>apt-get</code> to install required PostGIS extensions.</li>
+<li>Use <code>docker build</code> to create the image, then push it to docker hub.</li>
+</ul>
+<h3 id="creating-the-dockerfile">Creating the <code>Dockerfile</code></h3>
+<pre><code class="docker"># Extend exiting PostreSQL 10 Debian image: https://hub.docker.com/_/postgres/
+FROM postgres:10
+
+MAINTAINER Mihai Criveti
+
+# Install PostGIS packages
+RUN apt-get update
+RUN apt-get install --no-install-recommends --yes \
+    postgresql-10-postgis-2.4 postgresql-10-postgis-2.4-scripts postgresql-contrib
+</code></pre>
+
+<h3 id="building-the-image">Building the image</h3>
+<ul>
+<li>Turn the <code>Dockerfile</code> into a usable image using <code>docker build</code>.</li>
+<li>Tag the image with a namespace (the one used on Docker Hub): <code>cmihai</code></li>
+</ul>
+<pre><code class="bash">docker build --tag cmihai/postgis .
+</code></pre>
+
+<h3 id="uploading-the-image-to-docker-hub">Uploading the image to Docker Hub</h3>
+<ol>
+<li>Push the Dockerfile, README and docker-compose.yaml examples to github</li>
+<li>Test the image end to end</li>
+<li>Push the image to docker hub</li>
+</ol>
+<pre><code class="bash">export DOCKER_ID_USER=&quot;username&quot;
+docker login
+docker push
+docker tag cmihai/postgis $DOCKER_ID_USER/my_image
+docker push $DOCKER_ID_USER/my_image
+</code></pre>
+
+<h2 id="2-composing-multiple-images-with-docker-compose">2. Composing multiple images with docker compose</h2>
+<ul>
+<li>PGAdmin4 is a web based PostgreSQL Administration and SQL Development environment.</li>
+<li>Docker Compose can link an existing <a href="https://hub.docker.com/r/dpage/pgadmin4/">dpage/pgadmin4</a> image from Docker Hub to <code>cmihai/postgis</code></li>
+<li>Login to <a href="http://localhost:5050">http://localhost:5050</a> <code>admin</code>:<code>admin</code> after running <code>docker-compose up</code></li>
+</ul>
+<h3 id="create-docker-composeyaml">Create <code>docker-compose.yaml</code></h3>
+<pre><code class="yaml">version: '3.1'
+services:
+
+    postgis:
+        image: cmihai/postgis
+        container_name: postgis
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_PASSWORD: postgres
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+
+    pgadmin4:
+        image: dpage/pgadmin4
+        container_name: pgadmin4
+        ports:
+            - '5050:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin
+            PGADMIN_DEFAULT_PASSWORD: admin
+        links:
+            - postgis
+
+volumes:
+  pgdata:
+
+</code></pre>
+
+<h3 id="starting-the-services">Starting the services</h3>
+<p>Use <code>docker-compose up</code> to start the services:</p>
+<pre><code>docker-compose up
+</code></pre>
+
+<h2 id="3-create-a-database-and-enable-postgis-with-pgadmin4">3. Create a database and enable PostGIS with PGAdmin4</h2>
+<ol>
+<li>
+<p>Login to pgadmin4: <a href="http://localhost:5005">http://localhost:5050</a> with admin:admin</p>
+</li>
+<li>
+<p>Add a connection to postgis with user/pass <code>postgres</code>:<code>postgres</code> <img alt="create-server.png" src="create-server.png" /></p>
+</li>
+<li>
+<p>Create a new database and call it <code>gis</code> <img alt="create-database.png" src="create-database.png" /></p>
+</li>
+<li>
+<p>Open the SQL Query Tool on the newly created <code>gis</code> database: 
+In the Browser window, select <em>Servers &gt; postgis &gt; Databases &gt; gis</em>, the run <em>Tools &gt; Query Tool</em> from the <em>Menu</em>.</p>
+</li>
+<li>
+<p>Run the following SQL code to enable postgis database extensions:</p>
+</li>
+</ol>
+<pre><code class="sql">-- Enable PostGIS (includes raster)
+CREATE EXTENSION postgis;
+
+-- Enable Topology
+CREATE EXTENSION postgis_topology;
+
+-- Enable PostGIS Advanced 3D and other geoprocessing algorithms
+CREATE EXTENSION postgis_sfcgal;
+
+-- Fuzzy matching needed for Tiger
+CREATE EXTENSION fuzzystrmatch;
+
+-- Rule based standardizer
+CREATE EXTENSION address_standardizer;
+
+-- Example rule data set
+CREATE EXTENSION address_standardizer_data_us;
+
+-- Enable US Tiger Geocoder
+CREATE EXTENSION postgis_tiger_geocoder;
+</code></pre>
+
+<h3 id="expected-outcome-gis-database-with-geospacial-extensions">Expected Outcome: <code>gis</code> database with geospacial extensions</h3>
+<ul>
+<li><code>Query returned successfully</code>:
+<img alt="enable-postgis.png" src="enable-postgis.png" /></li>
+<li><em>gis &gt; Extensions</em> now lists a number of GIS extensions: <code>postgis, postgis_sfgal, postgis_tiger_geocoder, postgis_topology, fuzzystrmatch, address_standardizer and address_standardizer_data_us</code>.</li>
+<li><em>gis &gt; Schema &gt; public &gt; Functions</em> has been populated with a high number (1000+) of GIS specific functions.</li>
+<li>A new table called <code>spacial_ref_sys</code> is now available under <em>gis &gt; Schemas &gt; public &gt; Tables</em>.</li>
+<li>New schemas: <code>tiger</code>, <code>tiger_data</code> and <code>topology</code> have been created.</li>
+</ul>
+<h3 id="next-steps">Next Steps:</h3>
+<ul>
+<li>Load Geospacial data from shapefile, KML, GeoJSON, etc.</li>
+<li>Connect GIS Desktop clients such as QGIS.</li>
+<li>Connect to PostGIS using Python (ex: geopandas).</li>
+<li>Perform geospacial queries and analysis on the data.</li>
+</ul>
+<h2 id="links-and-reference">Links and Reference:</h2>
+<ul>
+<li>Github Repository with Dockerfile and docker-compose.yaml: <a href="https://github.com/crivetimihai/geospacial-engineering">https://github.com/crivetimihai/geospacial-engineering</a></li>
+<li>Docker Image: <a href="https://hub.docker.com">https://hub.docker/com</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../opendata/" class="btn btn-neutral float-right" title="Open Data Sources and Types">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Geospacial Engineering with Docker, PostgreGIS and QGIS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/crivetimihai/geospacial-engineering/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../opendata/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2018-09-24 21:31:48
+-->

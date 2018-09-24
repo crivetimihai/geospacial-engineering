@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Geospacial Engineering with PostgreSQL, PostGIS, QGIS and Python Geopandas">
+  <meta name="author" content="Mihai Criveti">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Geospacial Engineering with Docker, PostgreGIS and QGIS - GeoSpacial Engineering</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Geospacial Engineering with Docker, PostgreGIS and QGIS";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> GeoSpacial Engineering</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">Geospacial Engineering with Docker, PostgreGIS and QGIS</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#article-series">Article Series:</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#terms-and-tools">Terms and Tools:</a></li>
+        
+            <li><a class="toctree-l3" href="#links-and-reference">Links and Reference:</a></li>
+        
+            <li><a class="toctree-l3" href="#reference-and-further-documentation">Reference and further documentation:</a></li>
+        
+            <li><a class="toctree-l3" href="#fancy-math-with-hilbert-curves">Fancy math with Hilbert curves:</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="setup/">Docker PostGIS and PGAdmin4</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="opendata/">Open Data Sources and Types</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="qgis/">Load data with QGIS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="psql/">Commandline and psql</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">GeoSpacial Engineering</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Geospacial Engineering with Docker, PostgreGIS and QGIS</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/crivetimihai/geospacial-engineering/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="article-series">Article Series:</h1>
+<ul>
+<li>Part 1: Setup PostGIS using Docker</li>
+<li>Part 2: Connecting QGIS to PostGIS and importing data</li>
+<li>Part 3: Querying Data</li>
+<li>Part 4: Advanced Analytics</li>
+</ul>
+<h3 id="terms-and-tools">Terms and Tools:</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GIS</td>
+<td>Geographic Information System (manage, analyze and present geographic data)</td>
+</tr>
+<tr>
+<td>Enterprise GIS</td>
+<td>GIS system that spans the entire organization</td>
+</tr>
+<tr>
+<td>Geospacial Database</td>
+<td>Examples include PostgreSQL PostGIS, Oracle Spacial, SQLite's Spatialite or MSSQL Spacial</td>
+</tr>
+<tr>
+<td>Desktop GIS</td>
+<td>Examples include ESRI ArcGIS and QGIS</td>
+</tr>
+<tr>
+<td>QGIS</td>
+<td>Desktop GIS Software</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>Open Source RDBMS Server</td>
+</tr>
+<tr>
+<td>PostGIS</td>
+<td>Geospecial Extension to PostgreSQL</td>
+</tr>
+<tr>
+<td>PgAdmin4</td>
+<td>PostgreSQL Web based SQL Editor and Administration Tool</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td>We'll use the Docker container platform to run the software.</td>
+</tr>
+<tr>
+<td>Docker Commpose</td>
+<td>Compose multiple applications.</td>
+</tr>
+<tr>
+<td>Docker Hub</td>
+<td>Publish the image to docker hub.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="links-and-reference">Links and Reference:</h3>
+<ul>
+<li>Github Repository with Dockerfile and docker-compose.yaml</li>
+<li>Docker Image:</li>
+</ul>
+<h3 id="reference-and-further-documentation">Reference and further documentation:</h3>
+<ul>
+<li>http://workshops.boundlessgeo.com/postgis-intro/</li>
+<li>https://postgis.net/docs/manual-2.4/</li>
+<li>https://boundlessgeo.com/gis-solutions/</li>
+</ul>
+<h3 id="fancy-math-with-hilbert-curves">Fancy math with Hilbert curves:</h3>
+<ul>
+<li>http://blog.christianperone.com/2015/08/googles-s2-geometry-on-the-sphere-cells-and-hilbert-curve/</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="setup/" class="btn btn-neutral float-right" title="Docker PostGIS and PGAdmin4">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/crivetimihai/geospacial-engineering/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+        <span style="margin-left: 15px"><a href="setup/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2018-09-24 21:31:48
+-->
