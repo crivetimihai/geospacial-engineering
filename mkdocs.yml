@@ -1,0 +1,13 @@
+site_name: GeoSpacial Engineering
+site_author: Mihai Criveti
+site_description: Geospacial Engineering with PostgreSQL, PostGIS, QGIS and Python Geopandas
+repo_url: https://github.com/crivetimihai/geospacial-engineering
+
+theme: readthedocs
+
+pages:
+- 'Geospacial Engineering with Docker, PostgreGIS and QGIS': 'index.md'
+- 'Docker PostGIS and PGAdmin4': 'setup/README.md'
+- 'Open Data Sources and Types': 'opendata/README.md'
+- 'Load data with QGIS': 'qgis/README.md'
+- 'Commandline and psql': 'psql/README.md'
