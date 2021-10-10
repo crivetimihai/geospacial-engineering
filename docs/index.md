@@ -20,7 +20,7 @@
 | PostGIS         | Geospecial Extension to PostgreSQL                           |
 | PgAdmin4        | PostgreSQL Web based SQL Editor and Administration Tool      |
 | Docker          | We'll use the Docker container platform to run the software. |
-| Docker Commpose | Compose multiple applications.                               |
+| Docker Compose  | Compose multiple applications.                               |
 | Docker Hub      | Publish the image to docker hub.                             |
 
 ### Links and Reference:
